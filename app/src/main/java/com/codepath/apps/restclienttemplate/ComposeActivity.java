@@ -3,9 +3,13 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +31,9 @@ public class ComposeActivity extends AppCompatActivity {
     Context context;
     Button button;
     EditText etTweet;
+    TextView tvChars;
+    ImageView ivExit;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +43,30 @@ public class ComposeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         button = findViewById(R.id.btSend);
         etTweet = findViewById(R.id.etTweet);
+        tvChars = findViewById(R.id.tvChars);
+        ivExit = findViewById(R.id.ivExit);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         context = ComposeActivity.this;
         client = new TwitterClient(context);
 
+        etTweet.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvChars.setText(String.format("%d", 280 - s.toString().length()));
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +78,7 @@ public class ComposeActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             Tweet newTwit = Tweet.fromJSON(response);
-                            Intent intent = new Intent(ComposeActivity.this, TimelineActivity.class);
+                            intent = new Intent(ComposeActivity.this, TimelineActivity.class);
                             intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(newTwit));
                             context.startActivity(intent);
                         } catch (JSONException e) {
@@ -72,6 +98,13 @@ public class ComposeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+        ivExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(ComposeActivity.this, TimelineActivity.class);
+                context.startActivity(intent);
             }
         });
     }
