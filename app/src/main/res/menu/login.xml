@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="Compose"
+        app:showAsAction="ifRoom"></item>
+
+</menu>
