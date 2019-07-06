@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -60,6 +61,8 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(tweetAdapter);
 
+        rvTweets.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+
         sampleModelDao = ((TwitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
 
         client.getUserInfo(new JsonHttpResponseHandler() {
@@ -81,10 +84,11 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateTimeline();
         swipe = findViewById(R.id.swipeToRefresh);
+        swipe.setDistanceToTriggerSync(20);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d("Refresh", "why");
+                Log.e("Refresh", "why");
                 clear();
                 populateTimeline();
                 swipe.setRefreshing(false);

@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -65,14 +69,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvScreenName.setText("@" + tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvDate.setText(getRelativeTimeAgo(tweet.createdAt));
-        if (tweet.like > 0) {
-            holder.tvLike.setText(String.format("%d",tweet.like));
+        if (tweet.like > 0)
             holder.tvLike.setVisibility(View.VISIBLE);
-        }
-        if (tweet.retweets > 0) {
-            holder.tvRetweet.setText(String.format("%d",tweet.retweets));
+        else
+            holder.tvLike.setVisibility(View.INVISIBLE);
+        holder.tvLike.setText(String.format("%d",tweet.like));
+        if (tweet.retweets > 0)
             holder.tvRetweet.setVisibility(View.VISIBLE);
-        }
+        else
+            holder.tvRetweet.setVisibility(View.INVISIBLE);
+
+        holder.tvRetweet.setText(String.format("%d",tweet.retweets));
 
         if (!tweet.embeddedMedia.equals("")) {
             Glide.with(context)
@@ -119,7 +126,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
-                .into(holder.ivProfileImage);
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(holder.ivProfileImage){
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+            }
+        });
     }
 
     public String getRelativeTimeAgo(String rawJsonDate) {
