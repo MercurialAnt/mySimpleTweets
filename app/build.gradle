@@ -29,6 +29,16 @@ android {
         }
     }
 }
+ext {
+    roomVersion = "1.1.1"
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
@@ -48,4 +58,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     annotationProcessor 'org.parceler:parceler:1.1.12'
     implementation 'org.parceler:parceler-api:1.1.12'
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
 }

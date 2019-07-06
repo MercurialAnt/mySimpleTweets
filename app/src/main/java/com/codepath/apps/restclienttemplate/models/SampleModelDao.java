@@ -12,13 +12,17 @@ public interface SampleModelDao {
 
     // @Query annotation requires knowing SQL syntax
     // See http://www.sqltutorial.org/
-    
-    @Query("SELECT * FROM SampleModel WHERE id = :id")
-    SampleModel byId(long id);
 
-    @Query("SELECT * FROM SampleModel ORDER BY ID DESC LIMIT 300")
-    List<SampleModel> recentItems();
+
+    @Query("SELECT * FROM TweetObject")
+    List<TweetObject> recentItems();
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertModel(SampleModel... sampleModels);
+    void insertTweet(TweetObject... recentTweets);
+
+    @Query("SELECT * FROM TweetObject")
+    TweetObject dropTable();
+
+
 }

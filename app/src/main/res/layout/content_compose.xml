@@ -12,24 +12,25 @@
         android:id="@+id/etTweet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="What's happening?"
         android:inputType="textMultiLine|text"
         android:maxLength="280"
+        app:layout_constraintBottom_toTopOf="@+id/btSend"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivExit" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btSend"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#03A9F4"
+        android:layout_marginBottom="8dp"
+        android:background="@color/twitter_blue"
         android:text="tweet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTweet" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/ivExit"
@@ -40,7 +41,7 @@
         android:background="#0040D1C0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@drawable/ic_vector_close" />
 
     <TextView
         android:id="@+id/tvChars"
@@ -51,5 +52,62 @@
         app:layout_constraintBottom_toBottomOf="@+id/btSend"
         app:layout_constraintStart_toEndOf="@+id/btSend"
         app:layout_constraintTop_toBottomOf="@+id/etTweet" />
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/background_dark" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="341dp" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvScreenName"
+        app:layout_constraintEnd_toStartOf="@+id/ivProfile" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+        app:layout_constraintEnd_toStartOf="@+id/ivProfile" />
+
+    <TextView
+        android:id="@+id/tvReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/tvOldTweet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+
+    <TextView
+        android:id="@+id/tvOldTweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/etTweet"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

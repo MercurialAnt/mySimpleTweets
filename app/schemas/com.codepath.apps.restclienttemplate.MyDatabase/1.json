@@ -2,30 +2,30 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6e67c6322d1cd4b011c8b19c13634a4c",
+    "identityHash": "13aa1207392f6d88e268e3fec595b39f",
     "entities": [
       {
-        "tableName": "SampleModel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT)",
+        "tableName": "TweetObject",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`jsonTweet` TEXT, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "jsonTweet",
+            "columnName": "jsonTweet",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -33,7 +33,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6e67c6322d1cd4b011c8b19c13634a4c\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"13aa1207392f6d88e268e3fec595b39f\")"
     ]
   }
 }
