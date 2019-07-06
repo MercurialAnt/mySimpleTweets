@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -98,13 +97,6 @@ public class TimelineActivity extends AppCompatActivity {
         tweets.clear();
         tweetAdapter.notifyDataSetChanged();
     }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Tweet> list) {
-        tweets.addAll(list);
-        tweetAdapter.notifyDataSetChanged();
-    }
-
 
     public void onClickReply() {
         intentToCompose(REPLY_CODE, "reply");
