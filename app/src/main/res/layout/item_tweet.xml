@@ -11,12 +11,12 @@
         android:id="@+id/ivProfileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRetweetName"
         app:srcCompat="@android:color/black" />
 
     <TextView
@@ -24,21 +24,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@android:color/secondary_text_dark"
-        app:layout_constraintBottom_toTopOf="@+id/tvBody"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/tvName" />
+        app:layout_constraintStart_toEndOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvRetweetName" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:autoLink="all"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/tvScreenName" />
 
@@ -50,11 +53,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tvBody"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintHorizontal_weight=".5"
         app:layout_constraintStart_toEndOf="@+id/tvScreenName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRetweetName" />
 
     <ImageView
         android:id="@+id/ivComment"
@@ -127,9 +130,8 @@
         android:text="TextView"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvBody"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRetweetName" />
 
     <ImageView
         android:id="@+id/ivMedia"
@@ -143,4 +145,25 @@
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/ivComment"
         app:srcCompat="@android:drawable/alert_light_frame" />
+
+    <TextView
+        android:id="@+id/tvRetweetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivRetweeted"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/tvRetweetName"
+        app:layout_constraintTop_toTopOf="@+id/tvRetweetName"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
 </androidx.constraintlayout.widget.ConstraintLayout>

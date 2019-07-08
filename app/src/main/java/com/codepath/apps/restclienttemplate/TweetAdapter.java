@@ -19,18 +19,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-
-import cz.msebera.android.httpclient.Header;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
@@ -65,10 +60,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         final Tweet tweet = tweets.get(position);
 
         // populate teh views according to data
+
         holder.tvUserName.setText(tweet.user.name);
         holder.tvScreenName.setText("@" + tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvDate.setText(getRelativeTimeAgo(tweet.createdAt));
+
+        if (tweet.isRetweet) {
+            holder.tvRetweetName.setText(tweet.old_name + " Retweeted");
+            holder.tvRetweetName.setVisibility(View.VISIBLE);
+            holder.ivRetweeted.setVisibility(View.VISIBLE);
+        }
         if (tweet.like > 0)
             holder.tvLike.setVisibility(View.VISIBLE);
         else
@@ -88,23 +90,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         } else {
             holder.ivMedia.setVisibility(View.GONE);
         }
-        TwitterClient client = new TwitterClient(context);
 
-        client.getUserInfo(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    myProfile = User.fromJSON(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
+        myProfile = tweet.user;
 
         holder.ivReply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,12 +156,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public ImageView ivProfileImage;
         public ImageView ivMedia;
         public ImageView ivReply;
+        public ImageView ivRetweeted;
         public TextView tvScreenName;
         public TextView tvUserName;
         public TextView tvBody;
         public TextView tvDate;
         public TextView tvLike;
         public TextView tvRetweet;
+        public TextView tvRetweetName;
+
 
 
         public ViewHolder(View itemView) {
@@ -191,6 +181,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvLike = itemView.findViewById(R.id.tvLike);
             tvRetweet = itemView.findViewById(R.id.tvRetweet);
             ivReply = itemView.findViewById(R.id.ivComment);
+            ivRetweeted = itemView.findViewById(R.id.ivRetweeted);
+            tvRetweetName = itemView.findViewById(R.id.tvRetweetName);
+
         }
 
     }

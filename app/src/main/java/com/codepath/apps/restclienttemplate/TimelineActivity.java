@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +47,8 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+
 
         client = TwitterApp.getRestClient(getApplicationContext());
         // find the RecyclerView
@@ -150,17 +150,17 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // Store instance of the menu item containing progress
-        miActionProgressItem = menu.findItem(R.id.miActionProgress);
-        // Extract the action-view from the menu item
-        Toast.makeText(this, "aad", Toast.LENGTH_LONG);
-        ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
-
-        // Return to finish
-        return super.onPrepareOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        // Store instance of the menu item containing progress
+//        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+//        // Extract the action-view from the menu item
+//        Toast.makeText(this, "aad", Toast.LENGTH_LONG);
+//        ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+//
+//        // Return to finish
+//        return super.onPrepareOptionsMenu(menu);
+//    }
 
     public void showProgressBar() {
         // Show progress item

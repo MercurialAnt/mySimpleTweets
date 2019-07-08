@@ -15,6 +15,8 @@ public class Tweet {
     public String embeddedMedia;
     public int like;
     public int retweets;
+    public boolean isRetweet;
+    public String old_name;
 
 
     public Tweet() {
@@ -26,15 +28,24 @@ public class Tweet {
         Tweet tweet = new Tweet();
 
         // extract the values from JSON
-        tweet.body = jsonObject.getString("text");
-        tweet.uid = jsonObject.getLong("id");
-        tweet.createdAt = jsonObject.getString("created_at");
-        tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
-        tweet.retweets = jsonObject.getInt("retweet_count");
-        tweet.like = jsonObject.getInt("favorite_count");
+        tweet.isRetweet = jsonObject.getString("text").startsWith("RT");
+        JSONObject twit_body;
+        if (tweet.isRetweet) {
+            twit_body = jsonObject.getJSONObject("retweeted_status");
+            tweet.old_name = jsonObject.getJSONObject("user").getString("name");
+        } else {
+            twit_body = jsonObject;
+            tweet.old_name = "";
+        }
+        tweet.body = twit_body.getString("text");
+        tweet.uid = twit_body.getLong("id");
+        tweet.createdAt = twit_body.getString("created_at");
+        tweet.user = User.fromJSON(twit_body.getJSONObject("user"));
+        tweet.retweets = twit_body.getInt("retweet_count");
+        tweet.like = twit_body.getInt("favorite_count");
         JSONArray entityMedia;
         try {
-            entityMedia = jsonObject.getJSONObject("entities").getJSONArray("media");
+            entityMedia = twit_body.getJSONObject("entities").getJSONArray("media");
 
         } catch (Exception e) {
             entityMedia = null;

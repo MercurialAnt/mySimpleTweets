@@ -23,6 +23,7 @@
 
     <Button
         android:id="@+id/btSend"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
